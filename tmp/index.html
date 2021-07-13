@@ -4,39 +4,35 @@
   <meta charset="utf-8">
   <title>Triangulation test</title>
   <style type="text/css">
+
     html, body {
       height: 100%;
       margin: 0;
       overflow: hidden;
       font-family: Verdana;
     }
+
     canvas {
       width: 100%;
       height: 100%;
       display; block;
     }
-
-    #info{
-      position: absolute;
-      margin-left: 10px;
-    }
-
-    a{
-      color: yellow;
-      text-decoration: none;
-    }
+    
   </style>
 </head>
 <body>
 
+<!-- this plot requires a few external javascript libraries -->
 <script src="https://threejs.org/build/three.min.js"></script>
 <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 <script src="https://unpkg.com/delaunator@3.0.2/delaunator.js"></script> <!-- https://github.com/mapbox/delaunator -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script>
+
+<!-- delaunaymesh.js contains the functions below, which generate the plot. -->
 <script src="delaunaymesh.js"></script>
 <script type="text/javascript">
-  renderCanvas(document.body);
-  updateMeshData(); // function to add data from hardcoded array
+  renderCanvas(document.body); // add html canvas element to the body
+  updateMeshData(); // add plot data from hardcoded array (see also: updateMesh(fn, x, y) function in delaunaymesh.js)
 </script>
 
 </body>
