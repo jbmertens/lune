@@ -57,7 +57,7 @@ var rand_x = [...Array(5)].map(()=>0.01*Math.random());
 var rand_y = [...Array(5)].map(()=>0.01*Math.random());
 
 var geom = getGeometry(rand_fn, rand_x, rand_y);
-var mesh = new THREE.Mesh(
+var mesh1 = new THREE.Mesh(
   geom,
   new THREE.MeshPhongMaterial({
     color: "#316",
@@ -65,14 +65,41 @@ var mesh = new THREE.Mesh(
     side: THREE.DoubleSide,
   })
 );
-scene.add(mesh);
+
+var mesh2 = new THREE.Mesh(
+  geom,
+  new THREE.MeshDepthMaterial({
+      wireframe: false,
+  })
+);
+
+var mesh3 = new THREE.Mesh(
+    geom,
+    new THREE.MeshToonMaterial({
+    color: "#F00",
+    wireframe: true,
+    })
+);
+
+scene.add(mesh1);
+scene.add(mesh2);
+scene.add(mesh3);
 
 var gui = new dat.GUI();
-gui.add(mesh.material, "wireframe");
+var button={step:0};
+gui.add(mesh1.material, "wireframe");
+gui.add(mesh2.material, "wireframe");
+gui.add(mesh3.material, "wireframe");
+        
+//gui.add(button,"step", 0, 10, 1);
+//set button so that you can slide between the time slices when the program is done
+//button.onChange();
 
-function updateMesh(fn, x, y) {
-  var geom = getGeometry(fn, x, y);
-  mesh.geometry = geom;
+async function updateMesh(fn, x, y) {
+  var geom = await getGeometry(fn, x, y);
+  mesh1.geometry = geom;
+  mesh2.geometry = geom;
+  mesh3.geometry = geom;
 }
 
 function resize(renderer) {
@@ -92,6 +119,7 @@ function render() {
     camera.updateProjectionMatrix();
   }
   renderer.render(scene, camera);
+  renderer.setSize( window.innerWidth, window.innerHeight);
   requestAnimationFrame(render);
 }
 
