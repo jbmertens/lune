@@ -60,8 +60,8 @@ var geom = getGeometry(rand_fn, rand_x, rand_y);
 var mesh1 = new THREE.Mesh(
   geom,
   new THREE.MeshPhongMaterial({
-    color: "#316",
-    wireframe: true,
+    color: "#696969",
+    wireframe: false,
     side: THREE.DoubleSide,
   })
 );
@@ -69,14 +69,14 @@ var mesh1 = new THREE.Mesh(
 var mesh2 = new THREE.Mesh(
   geom,
   new THREE.MeshDepthMaterial({
-      wireframe: false,
+      wireframe: true,
   })
 );
 
 var mesh3 = new THREE.Mesh(
     geom,
     new THREE.MeshToonMaterial({
-    color: "#F00",
+    color: "#FF0000",
     wireframe: true,
     })
 );

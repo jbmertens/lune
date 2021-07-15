@@ -1,29 +1,31 @@
 //Ploting javascript file
-var verbose = true;
-
 var data = {
-        x:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
-          [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
-        y:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
-          [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
-        z:[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
-          [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-    }
+        x:[[],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[]],
+        y:[[],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[]],
+        z:[[],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[]],
+        z:[[],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[],[],
+           [],[],[],[],[],[],[],[],[]]
+}
+
+var verbose = false;
 var fx;
-var min;
-var i0max;
-var i1max;
-var i2max;
-var isRunning = true;
-var n=0, i=0, j=0, k=0;
-var N_final;
+var min, i0max, i1max, i2max;
+var n, i, j, k;
+var isRunning, N_final;
 
 async function graphSlice(){
 
     if(n>N_final){
         isRunning = false;
     }
-        
+    
     if(isRunning){
         if(n%20 == 0 || n==0 || n==N_final) {
             if(verbose) console.log("Generating output for plotting", n);
@@ -36,9 +38,8 @@ async function graphSlice(){
                      xCart[0] = _getCart(i0,i1,i2,1);
                      xCart[1] = _getCart(i0,i1,i2,2);
                      console.log(xCart[0], xCart[1], _getIDX4ptS(fx,idx), _getFxVal(_getIDX4ptS(fx,idx)));
-                        
-                     data.x[j][i] = xCart[0];
-                     data.y[j][i] = xCart[1];
+                     data.x[j][i] = xCart[1];
+                     data.y[j][i] = xCart[0];
                      data.z[j][i] = _getFxVal(_getIDX4ptS(fx,idx));
                      i++;
                   }
@@ -46,30 +47,61 @@ async function graphSlice(){
             }
             
             if(verbose) console.log("Done generating output for plotting", n);
-         
-            console.log("j is: ", j);
             updateMesh(data.z[j], data.x[j], data.y[j]);
             await sleep(10);
-            j++;
-            
-            
+            j++; 
         }
-        // run a step
-        // plot the step?
-        // store in the data variable (find a way to extend/append to data arrays)
-        //     and increment numStepsStored? ...
-        
         n++;
-        //if(verbose) console.log("Taking step", n);
+        if(verbose) console.log("Taking step", n);
         _stepForward();
-        //if(verbose) console.log("Done taking step", n);
-        
-        // might need to sleep for a bit?
-        // await sleep(10); // << no idea
-        // call graphSlice again...
+        if(verbose) console.log("Done taking step", n);
+
         graphSlice();
     } 
 }
+
+async function animateSim(){
+    k=0;
+    for(var loop=0; loop<29; loop++){
+        await nextSlice();
+        await sleep(50);
+    }
+}
+
+function nextSlice(){ 
+    if(k==29){
+        k=0;
+    }
+    updateMesh(data.z[k], data.x[k], data.y[k]);
+    k++;
+}
+
+function runSim(){
+  if(verbose) console.log("Running");
+  _runsim();
+  if(verbose) console.log("Done");
+    
+  N_final = _getNFinal();
+  min = _getNGHOSTS(0);
+  i0max = _getNGHOSTS(1)-min;
+  i1max = _getNGHOSTS(2)-min;
+  i2max = _getNGHOSTS(3)-min;
+  fx = document.getElementById("fx").value;
+  isRunning = true;
+  n=0;
+  i=0;
+  j=0;
+  k=0;
+  
+  graphSlice();
+  console.log("graph run");
+};
+
+function sleep(ms)
+{
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 // also add some control (buttons) to change the value of isRunning
 // 
@@ -128,37 +160,3 @@ function graphSlice(){
     }
 };
 */
-
-async function animateSim(){
-    k=0;
-    for(var loop=0; loop<29; loop++){
-        await nextSlice();
-        await sleep(50);
-    }
-}
-
-function nextSlice(){ 
-    if(k==29){
-        k=0;
-    }
-    updateMesh(data.z[k], data.x[k], data.y[k]);
-    k++;
-}
-
-function runSim(){
-  console.log("Running");
-  _runsim();
-  console.log("Done");
-    
-  N_final = _getNFinal();
-  min = _getNGHOSTS(0);
-  i0max = _getNGHOSTS(1)-min;
-  i1max = _getNGHOSTS(2)-min;
-  i2max = _getNGHOSTS(3)-min;
-  fx = document.getElementById("fx").value;
-};
-
-function sleep(ms)
-{
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
