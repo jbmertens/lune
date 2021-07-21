@@ -7,7 +7,6 @@
 // idea from:
 // https://codepen.io/prisoner849/pen/bQWOjY
 
-
 function getGeometry(fn, x, y)
 {
   var points3d = [];
@@ -85,16 +84,6 @@ scene.add(mesh1);
 scene.add(mesh2);
 scene.add(mesh3);
 
-var gui = new dat.GUI();
-var button={step:0};
-gui.add(mesh1.material, "wireframe");
-gui.add(mesh2.material, "wireframe");
-gui.add(mesh3.material, "wireframe");
-        
-//gui.add(button,"step", 0, 10, 1);
-//set button so that you can slide between the time slices when the program is done
-//button.onChange();
-
 async function updateMesh(fn, x, y) {
   var geom = await getGeometry(fn, x, y);
   mesh1.geometry = geom;
@@ -119,7 +108,7 @@ function render() {
     camera.updateProjectionMatrix();
   }
   renderer.render(scene, camera);
-  renderer.setSize( window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
   requestAnimationFrame(render);
 }
 

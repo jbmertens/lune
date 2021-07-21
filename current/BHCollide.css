@@ -1,4 +1,128 @@
-#title{
-    font-weight: strong;
-    background: grey;
+body{
+    overflow-x: hidden;
+}
+
+#controlPanel{
+    position: absolute;
+    margin-top: 0px;
+    color: 	#FFFFFF;
+    
+    height: auto;
+}
+
+#buttons{
+    background: #464646;
+    padding: 5px;
+}
+
+#runButton{
+    cursor: pointer;
+}
+
+#fx{
+    cursor: pointer;
+}
+
+#luneLogo{
+    position: fixed;
+    top: 3px;
+    right: 3px;
+    height:30px;
+    border: 5px solid #464646;
+    border-radius: 20px;
+    background-color: #464646;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#infoButton{
+   background-color: #464646;
+   cursor: pointer;
+}
+
+#BHlogo{
+    height:20px;
+    vertical-align: middle;
+}
+
+#progressBar{
+  position: relative;
+  width: 50%;
+  background-color: grey;
+}
+
+#progressDisplay{
+  width: 0%;
+  height: 10px;
+  background-color: green;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  color: #464646;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+@media only screen and (max-width: 600px){
+    
+#controlPanel{
+   width: 85%;
+}
+
+#luneLogo{
+    height:30px;
+    border: 5px solid #464646;
+    border-radius: 20px;
+    background-color: none;
+    vertical-align: middle;
+    align-content: right;
+    cursor: pointer;
+}
+    
+@media only screen and (orientation: portrait){
 }

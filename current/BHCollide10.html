@@ -8,25 +8,22 @@
         <body>
             <script src="https://threejs.org/build/three.min.js"></script>
             <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
-            <script src="https://unpkg.com/delaunator@3.0.2/delaunator.js"></script> <!-- https://github.com/mapbox/delaunator -->
+            <script src="https://unpkg.com/delaunator@3.0.2/delaunator.js">
+            </script> <!-- https://github.com/mapbox/delaunator -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script>
             <script src="delaunaymesh.js"></script>
             
-            <h1 id="title"> Colliding Black Holes Silmulation</h1>
-            <ol>
-                <li>Step 1</li>
-                <li>Step 2</li>
-                <li>Step 3</li>
-                <li>For more infomation on NRPY+ and BlackHoles@Home
-                    <a href="http://astro.phys.wvu.edu/bhathome/" target="_blank">Click Here</a>
-                </li>
-            </ol>
-            
             <script src = "BHCollidePlot.js"></script>
+            <script sync src="BHCollide10.js"></script>
             
-            <h2>Run Simulation</h2>
+            <h1 id="title"> Colliding Black Holes Silmulation</h1>
+            <p>For more infomation on NRPY+ and BlackHoles@Home
+                    <a href="http://astro.phys.wvu.edu/bhathome/" target="_blank">Click Here</a>
+            </p>
+  
+            <button type="button" onclick="runSim();">Run Simulation</button>
             <p>Select function to graph</p>
-            <select name="function" id="fx">
+            <select name="function" id="fx" onchange="changeUp();">
                 <option value="0">ADD00GF</option>
                 <option value="1">ADD01GF</option>
                 <option value="2">ADD02GF</option>
@@ -52,13 +49,12 @@
                 <option value="22">VETU1GF</option>
                 <option value="23">VETU2GF</option>
             </select>
-            <br>
-            <p> Simulation should take approximately 25 seconds </p>
-            <button type="button" onclick="runSim();">Run Simulation</button>
             <button type="button" onclick="nextSlice();">Step Forward</button>
             <button type="button" onclick="animateSim();">Animate</button>
-            <script sync src=BHCollide10.js></script>
-         
+            <div id="progressTimer">
+                <div id="progressBar"></div>
+            </div>
+            
             <script type="text/javascript">
                 renderCanvas(document.body);
             </script>
