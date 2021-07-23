@@ -15,7 +15,7 @@ for(let width=0; width<24; width++){
     for(let length=0; length<29; length++){
         xdata[length] = [];
         ydata[length] = [];
-        zdata[width][length]= [];
+        zdata[width][length] = [];
     }
 }
 
@@ -61,16 +61,14 @@ async function graphSlice(){
         if(n%20 == 0) {
             if(verbose) console.log("Generating output for plotting", n);
             
+            i=0;
             for(let i2=min;i2<i2max;i2++){
                for(let i1=min;i1<i1max;i1++){
-                  for(let i0=min;i0<i0max-10;i0++){
+                  for(let i0=min;i0<i0max;i0++){
                      let idx = _getIDX3S(i0,i1,i2);
                      var xCart = [];
                      xCart[0] = _getCart(i0,i1,i2,1);
                      xCart[1] = _getCart(i0,i1,i2,2);
-                     
-                     if(Math.abs(xCart[0])<1.0e-2 && Math.abs(xCart[1])<1.0e-2) console.log(xcart);
-                     
                      xdata[j][i] = xCart[0];
                      ydata[j][i] = xCart[1];
                      for(let k=0; k<24; k++){
@@ -95,9 +93,10 @@ async function graphSlice(){
         
         if(n==N_final){
             if(verbose) console.log("Generating output for plotting", n);
+            i=0;
             for(let i2=min;i2<i2max;i2++){
                for(let i1=min;i1<i1max;i1++){
-                  for(let i0=min + 1;i0<i0max -1;i0++){
+                  for(let i0=min;i0<i0max;i0++){
                      let idx = _getIDX3S(i0,i1,i2);
                      var xCart = [];
                      xCart[0] = _getCart(i0,i1,i2,1);
