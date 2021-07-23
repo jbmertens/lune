@@ -1,9 +1,9 @@
-//Javascript file to plot simulation
+// Javascript file to plot simulation data
 
-//Turns on/off debugging comments
+// Turns on/off debugging comments
 var verbose = false;
 
-//Various global variables
+// Various global variables
 var runonce=false;
 var fx, min, i0max, i1max, i2max, i0MIN, i1mid, i2mid;
 var n, i, j, q, isRunning, firstRun, N_final;
@@ -19,11 +19,11 @@ for(let width=0; width<24; width++){
     }
 }
 
-//Updates plot when different functions are selected
+// Updates the plot when different fields are selected
 function changeUp(){
     if(runonce){
-    fx = document.getElementById("fx").value;
-    updateMesh(zdata[fx][0], xdata[0], ydata[0]);
+        fx = document.getElementById("fx").value;
+        updateMesh(zdata[fx][0], xdata[0], ydata[0]);
     }
 };
 
@@ -31,27 +31,27 @@ function stopSim(){
     isRunning = false;
 };
 
-//Progress bar
+// Progress bar
 var q = 0;
 function move() {
-  if (q == 0) {
-    q++;
-    var elem = document.getElementById("progressDisplay");
-    var width = 3;
-    var id = setInterval(frame, 10);
-    function frame() {
-      if (width >= 100) {
-        clearInterval(id);
-        q = 0;
-      } else {
-        width = width + 2;
-        elem.style.width = width + "%";
-      }
+    if (q == 0) {
+        q++;
+        var elem = document.getElementById("progressDisplay");
+        var width = 3;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+                q = 0;
+            } else {
+                width = width + 2;
+                elem.style.width = width + "%";
+            }
+        }
     }
-  }
 };
 
-//Main function that runs the simulation and records data into xdata,ydata,zdata
+// Main function that runs the simulation and records data into xdata,ydata,zdata
 async function graphSlice(){
     if(n>N_final){
         isRunning = false;
@@ -63,11 +63,14 @@ async function graphSlice(){
             
             for(let i2=min;i2<i2max;i2++){
                for(let i1=min;i1<i1max;i1++){
-                  for(let i0=min;i0<i0max;i0++){
+                  for(let i0=min;i0<i0max-10;i0++){
                      let idx = _getIDX3S(i0,i1,i2);
                      var xCart = [];
                      xCart[0] = _getCart(i0,i1,i2,1);
                      xCart[1] = _getCart(i0,i1,i2,2);
+                     
+                     if(Math.abs(xCart[0])<1.0e-2 && Math.abs(xCart[1])<1.0e-2) console.log(xcart);
+                     
                      xdata[j][i] = xCart[0];
                      ydata[j][i] = xCart[1];
                      for(let k=0; k<24; k++){
@@ -85,6 +88,7 @@ async function graphSlice(){
             j++; 
             move();
         }
+
         if(verbose) console.log("Taking step", n);
         _stepForward();
         if(verbose) console.log("Done taking step", n);
@@ -149,38 +153,38 @@ async function animateSim(){
 
 //Initializes variables and simulation
 function runSim(){
-  document.getElementById("stopButton").disabled = false;
-  document.getElementById("stopButton").style.cursor = "pointer";
-  document.getElementById("nextButton").disabled = true;
-  document.getElementById("nextButton").style.cursor = "default";
-  document.getElementById("animateButton").disabled = true;
-  document.getElementById("animateButton").style.cursor = "default";
-  document.getElementById("progressBar").style.visibility = "visible";
-  if(verbose) console.log("Running");
-  // _initialize(72,12,2,1.0);
-  _runsim();
-  if(verbose) console.log("Done");
-    
-  N_final = 559; //_getNFinal();
-  min = _getNGHOSTS(0);
-  i0MIN=_getNGHOSTS(0); // In spherical, r=Delta r/2.
-  i1mid= _getNGHOSTS(2)/2;
-  i2mid= _getNGHOSTS(3)/2;
-  i0max = _getNGHOSTS(1)-min;
-  i1max = _getNGHOSTS(2)-min;
-  i2max = _getNGHOSTS(3)-min;
-  fx = document.getElementById("fx").value;
-  isRunning = true;
-  n=0;
-  i=0;
-  j=0;
-  q=0;
-  runonce=true;
+    document.getElementById("stopButton").disabled = false;
+    document.getElementById("stopButton").style.cursor = "pointer";
+    document.getElementById("nextButton").disabled = true;
+    document.getElementById("nextButton").style.cursor = "default";
+    document.getElementById("animateButton").disabled = true;
+    document.getElementById("animateButton").style.cursor = "default";
+    document.getElementById("progressBar").style.visibility = "visible";
+    if(verbose) console.log("Running");
+    // _initialize(72,12,2,1.0);
+    _runsim();
+    if(verbose) console.log("Done");
 
-  graphSlice();
+    N_final = 559; //_getNFinal();
+    min = _getNGHOSTS(0);
+    i0MIN=_getNGHOSTS(0); // In spherical, r=Delta r/2.
+    i1mid= _getNGHOSTS(2)/2;
+    i2mid= _getNGHOSTS(3)/2;
+    i0max = _getNGHOSTS(1)-min;
+    i1max = _getNGHOSTS(2)-min;
+    i2max = _getNGHOSTS(3)-min;
+    fx = document.getElementById("fx").value;
+    isRunning = true;
+    n=0;
+    i=0;
+    j=0;
+    q=0;
+    runonce=true;
+
+    graphSlice();
 };
 
-//Needed for plot to display in time
+// Needed for plot to display in time
 function sleep(ms){
-  return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 };

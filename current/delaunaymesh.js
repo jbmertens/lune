@@ -51,6 +51,7 @@ light.position.setScalar(-100);
 scene.add(light);
 scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
+// set up some random initial data
 var rand_fn = [...Array(5)].map(()=>0.01*Math.random());
 var rand_x = [...Array(5)].map(()=>0.01*Math.random());
 var rand_y = [...Array(5)].map(()=>0.01*Math.random());
