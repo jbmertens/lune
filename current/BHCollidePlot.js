@@ -1,23 +1,14 @@
 // Javascript file to plot simulation data
 
 // Turns on/off debugging comments
-var verbose = false;
+var verbose=false;
+var vubrose=true;
 
 // Various global variables
 var runonce=false;
 var fx, min, i0max, i1max, i2max, i0MIN, i1mid, i2mid;
-var n, i, j, q, isRunning, firstRun, N_final;
+var n, i, j, q, isRunning, firstRun, N_final, numStep, elem, barWidth;
 var xdata=[], ydata=[], zdata=[];
-var xinfo=[], yinfo=[];
-
-for(let width=0; width<24; width++){
-    zdata[width] = [];
-    for(let length=0; length<29; length++){
-        xdata[length] = [];
-        ydata[length] = [];
-        zdata[width][length] = [];
-    }
-}
 
 // Updates the plot when different fields are selected
 function changeUp(){
@@ -32,23 +23,17 @@ function stopSim(){
 };
 
 // Progress bar
-var q = 0;
-function move() {
-    if (q == 0) {
-        q++;
-        var elem = document.getElementById("progressDisplay");
-        var width = 3;
-        var id = setInterval(frame, 10);
-        function frame() {
-            if (width >= 100) {
-                clearInterval(id);
-                q = 0;
-            } else {
-                width = width + 2;
-                elem.style.width = width + "%";
-            }
-        }
+function move(j) {
+    if (j == 0) {
+        elem = document.getElementById("progressDisplay");
+        barWidth = 0;
     }
+        if (barWidth >= 100) {
+                clearInterval(id);
+        } else {
+            barWidth = barWidth + (100/(numStep+1));
+            elem.style.width = barWidth + "%";
+        }
 };
 
 // Main function that runs the simulation and records data into xdata,ydata,zdata
@@ -57,8 +42,10 @@ async function graphSlice(){
         isRunning = false;
     }
     
+    //console.log(n, N_final, j);
+    
     if(isRunning){
-        if(n%20 == 0) {
+        if(n%_getDim(3) == 0) {
             if(verbose) console.log("Generating output for plotting", n);
             
             i=0;
@@ -74,7 +61,10 @@ async function graphSlice(){
                      for(let k=0; k<24; k++){
                          zdata[k][j][i] = _getFxVal(_getIDX4ptS(k,idx));
                      }    
-                     if(verbose) console.log(xCart[0], xCart[1], _getIDX4ptS(fx,idx), _getFxVal(_getIDX4ptS(fx,idx)));
+                     if(vubrose) console.log(_getFxVal(_getIDX4ptS(fx,idx)));
+                      
+                      //console.log(xCart[0], xCart[1], _getIDX4ptS(fx,idx),
+                      
                      i++;
                   }
                }
@@ -82,14 +72,14 @@ async function graphSlice(){
             
             if(verbose) console.log("Done generating output for plotting", n);
             updateMesh(zdata[fx][j], xdata[j], ydata[j]);
-            await sleep(10);
-            j++; 
-            move();
+            await sleep(10); 
+            await move(j);
+            j++;
         }
 
         if(verbose) console.log("Taking step", n);
         _stepForward();
-        if(verbose) console.log("Done taking step", n);
+        if(vubrose) console.log("Done taking step", n);
         
         if(n==N_final){
             if(verbose) console.log("Generating output for plotting", n);
@@ -134,7 +124,7 @@ async function graphSlice(){
 
 //Moves plot forward one timestep in current function
 function nextSlice(){
-    if(q==29){
+    if(q==j){
         q=0;
     }
     updateMesh(zdata[fx][q], xdata[q], ydata[q]);
@@ -144,7 +134,7 @@ function nextSlice(){
 //Animates through all timesteps for current function
 async function animateSim(){
     q=0;
-    for(var loop=0; loop<29; loop++){
+    for(var loop=0; loop<j; loop++){
         await nextSlice();
         await sleep(50);
     }
@@ -159,12 +149,16 @@ function runSim(){
     document.getElementById("animateButton").disabled = true;
     document.getElementById("animateButton").style.cursor = "default";
     document.getElementById("progressBar").style.visibility = "visible";
+    
+    _setDim(document.getElementById("res1").value, 
+            document.getElementById("res2").value, 
+            document.getElementById("res3").value);
+    
     if(verbose) console.log("Running");
-    // _initialize(72,12,2,1.0);
     _runsim();
     if(verbose) console.log("Done");
 
-    N_final = 559; //_getNFinal();
+    N_final = _getNFinal();
     min = _getNGHOSTS(0);
     i0MIN=_getNGHOSTS(0); // In spherical, r=Delta r/2.
     i1mid= _getNGHOSTS(2)/2;
@@ -179,6 +173,21 @@ function runSim(){
     j=0;
     q=0;
     runonce=true;
+    
+    numStep = N_final/_getDim(3);
+    console.log(_getDim(3));
+    console.log(N_final);
+    console.log(numStep);
+    
+    for(let width=0; width<24; width++){
+        zdata[width] = [];
+        for(let length=0; length<(numStep+1); length++){
+            xdata[length] = [];
+            ydata[length] = [];
+            zdata[width][length] = [];
+        }
+    }
+    
 
     graphSlice();
 };

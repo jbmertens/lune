@@ -35,8 +35,8 @@ function getGeometry(fn, x, y)
 
 
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(40, 1, 1, 200);
-camera.position.set(0,-10,-2);
+var camera = new THREE.PerspectiveCamera(20, 1, 1, 100);
+camera.position.set(15,15,1);
 var renderer = new THREE.WebGLRenderer({
   antialias: true
 });
@@ -47,8 +47,8 @@ var controls = new THREE.OrbitControls(camera, canvas);
 var light = new THREE.DirectionalLight(0xffffff, 2.5);
 light.position.setScalar(100);
 scene.add(light);
-light.position.setScalar(-100);
-scene.add(light);
+//light.position.setScalar(-100);
+//scene.add(light);
 scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
 // set up some random initial data
@@ -67,13 +67,6 @@ var mesh1 = new THREE.Mesh(
 );
 
 var mesh2 = new THREE.Mesh(
-  geom,
-  new THREE.MeshDepthMaterial({
-      wireframe: true,
-  })
-);
-
-var mesh3 = new THREE.Mesh(
     geom,
     new THREE.MeshToonMaterial({
     color: "#FF0000",
@@ -81,16 +74,32 @@ var mesh3 = new THREE.Mesh(
     })
 );
 
+const coordAxes = new THREE.AxesHelper( 5 );
+const red = new THREE.Color( "#ff0000" );
+const blue = new THREE.Color( "#0000FF" );
+const purple = new THREE.Color( "#800080" );
+coordAxes.setColors(red, blue, purple); 
+
+scene.add(coordAxes);
 scene.add(mesh1);
 scene.add(mesh2);
-scene.add(mesh3);
 
 async function updateMesh(fn, x, y) {
   var geom = await getGeometry(fn, x, y);
   mesh1.geometry = geom;
   mesh2.geometry = geom;
-  mesh3.geometry = geom;
-}
+};
+
+var visible = true;
+function axesVisibility(){
+    if(visible){
+        coordAxes.visible = false;
+        visible = false;
+    } else {
+        coordAxes.visible = true;
+        visible = true;
+    }
+};
 
 function resize(renderer) {
   const canvas = renderer.domElement;

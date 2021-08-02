@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Colliding Black Holes</title>  
         <link rel="stylesheet" href="BHCollide.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <script src="https://threejs.org/build/three.min.js"></script>
@@ -18,7 +19,7 @@
           src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
         <script src="delaunaymesh.js"></script> 
         <script src = "BHCollidePlot.js"></script>
-        <script src="BHCollideSim.js"></script>
+        <script src="BHCollideSimNew.js"></script>
 
         <!-- Simulation Control Panel start -->
         <div id="controlPanel">
@@ -53,6 +54,17 @@
                 </select>
                 <button id="nextButton" onclick="javascript:nextSlice();" disabled>Step Forward</button>
                 <button id="animateButton" onclick="javascript:animateSim();" disabled>Animate</button>
+                <button id="moreButton">
+                    <i id="icon" class="fa fa-angle-down"></i>
+                </button>
+                <div id="advancedControls">
+                    <label for="res1" id="res">Resolution</label>
+                    <input type="text" id="res1" name="res1" maxlength="2" size="4" value="72">
+                    <input type="text" id="res2" maxlength="2" size="4" value="12">
+                    <input type="text" id="res3" maxlength="1" size="4" value="2" hidden>
+                    <label for="axesOnOff">Axes</label>
+                    <input type="checkbox" id="axesOnOff" onchange="axesVisibility();" checked>
+                </div>
             </div>
             <div id="progressBar">
                 <div id="progressDisplay"></div>
@@ -105,11 +117,16 @@
         <!-- Pop-up info page end-->
 
         <script type="text/javascript">
+            
+            var count = 0;
+            
             document.getElementById("progressBar").style.visibility = "hidden";
 
             var modal = document.getElementById("myModal");
             var infoBtn = document.getElementById("luneLogo");
             var span = document.getElementsByClassName("close")[0];
+            var advControls = document.getElementById("advancedControls");
+            var more = document.getElementById("moreButton");
 
             infoBtn.onclick = function() {
                 modal.style.display = "block";
@@ -117,6 +134,16 @@
 
             span.onclick = function() {
                 modal.style.display = "none";
+            }
+            
+            more.onclick = function(){
+                if(count%2==0){
+                    advControls.style.display = "block";
+                    more.icon ="fa fa-angle-up";
+                } else {
+                    advControls.style.display = "none";
+                }
+                count++;
             }
 
             renderCanvas(document.body);

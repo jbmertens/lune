@@ -10,6 +10,13 @@ body {
     font-family: Verdana, Arial, sans-serif;
 }
 
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Control Panel start*/
 #controlPanel {
     position: absolute;
     margin-top: 0px;
@@ -20,7 +27,7 @@ body {
 #buttons {
     background: #464646;
     padding: 5px;
-    border-radius: 0 0 3px 0;
+    border-radius: 0 0 4px 0;
 }
 
 #runButton {
@@ -30,13 +37,57 @@ body {
 #fx {
     cursor: pointer;
 }
+/* Control Panel end*/
 
+/* Advanced Controls start*/
+#advancedControls{
+    padding: 5px;
+    display: none;
+    position: relative;
+}
+
+label{
+    vertical-align: middle;
+    font-size: 15px;
+    font-family: Helvetica Neue, sans-serif;
+}
+
+#res1{
+    vertical-align: bottom;
+}
+#res2{
+    vertical-align: bottom;
+}
+#res3{
+    vertical-align: bottom;
+}
+
+/* Advanced Controls end*/
+
+/* Progress Bar start*/
+#progressBar {
+    position: relative;
+    width: 100%;
+    background-color: grey;
+    border-radius: 4px;
+}
+
+#progressDisplay {
+    width: 0%;
+    height: 10px;
+    background-color: green;
+    border-radius: 4px;
+}
+/* Progress Bar end*/
+
+/* Info Button start */
 #luneLogo {
     position: fixed;
     display: block;
-    padding:  4px;
+    padding:  2px 0 0 6px;
     font-size: 18px;
     font-family: times;
+    font-style: italic;
     top: 5px;
     right: 5px;
     height: 23px;
@@ -53,56 +104,29 @@ body {
     cursor: pointer;
 }
 
-#BHlogo {
-    height: 20px;
-    vertical-align: middle;
-}
-
-#emscriptenlogo {
-    height: 20px;
-    vertical-align: middle;
-}
-
-#progressBar {
-    position: relative;
-    width: 100%;
-    background-color: grey;
-}
-
-#progressDisplay {
-    width: 0%;
-    height: 10px;
-    background-color: green;
-}
-
-canvas {
-    width: 100%;
-    height: 100%;
-}
-
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed; 
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
     color: #464646;
-    margin: 7% auto; /* 7% from the top and centered */
+    margin: 7% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    border-radius: 3px;
+    width: 80%;
+    border-radius: 5px;
 }
 
 /* The Close Button */
@@ -120,9 +144,20 @@ canvas {
     cursor: pointer;
 }
 
+#BHlogo {
+    height: 20px;
+    vertical-align: middle;
+}
+
+#emscriptenlogo {
+    height: 20px;
+    vertical-align: middle;
+}
+
+/* Info Button end */
+
 
 @media only screen and (max-width: 600px){
-    
     #controlPanel {
         width: 85%;
     }
