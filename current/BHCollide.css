@@ -23,19 +23,14 @@ canvas {
     height: auto;
 }
 
-.selectize-control.single .selectize-input, .selectize-control.single .selectize-input input {
-    height: 27px;
-}
-
-.selectize-control{
+.selectize-control {
     display: inline-block;
     width: 200px;
-    height: 28px;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
-.selectize-input>*{
-    height: 10px;
+.selectize-input {
+    padding: 6px 8px 5px 8px;
 }
 
 #controlBar {
@@ -48,8 +43,10 @@ canvas {
     cursor: pointer;
 }
 
-.buttons{
-   padding: 4px;
+.buttons {
+   padding: 5px 8px;
+   font-size: 14px;
+   line-height: 18px;
 }
 
 #selectFx {
@@ -142,7 +139,7 @@ label{
 .modal-content {
     background-color: #fefefe;
     color: #464646;
-    margin: 7% auto;
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
@@ -181,9 +178,15 @@ label{
     #controlPanel {
         width: 85%;
     }
-
+    .buttons {
+        margin: 3px 0;
+    }
+    .selectize-control {
+        margin:  3px 0;
+        width: 100%;
+    }
 }
-    
+
 @media only screen and (orientation: portrait){
 
 }
