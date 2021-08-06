@@ -35,8 +35,9 @@ function getGeometry(fn, x, y)
 
 
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(20, 1, 1, 100);
-camera.position.set(15,15,1);
+var camera = new THREE.PerspectiveCamera(15, 1, 1, 100);
+camera.position.set(10,10,10);
+camera.up.set(0,0,1);
 var renderer = new THREE.WebGLRenderer({
   antialias: true
 });
@@ -75,9 +76,9 @@ var mesh2 = new THREE.Mesh(
 );
 
 const coordAxes = new THREE.AxesHelper( 5 );
-const red = new THREE.Color( "#ff0000" );
-const blue = new THREE.Color( "#0000FF" );
-const purple = new THREE.Color( "#800080" );
+const red = new THREE.Color("#ff0000");
+const blue = new THREE.Color("#0000FF" );
+const purple = new THREE.Color("#800080");
 coordAxes.setColors(red, blue, purple); 
 
 scene.add(coordAxes);

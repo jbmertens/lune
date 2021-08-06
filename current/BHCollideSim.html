@@ -25,32 +25,34 @@
             <div id="buttons">
                 <button id="runButton" onclick="javascript:runSim();">Run Simulation</button>
                 <button id="stopButton" onclick="javascript:stopSim();" disabled>Stop</button>
-                <select name="function" id="fx" onchange="changeUp();">
-                    <option value="0">ADD00GF</option>
-                    <option value="1">ADD01GF</option>
-                    <option value="2">ADD02GF</option>
-                    <option value="3">ADD11GF</option>
-                    <option value="4">ADD12GF</option>
-                    <option value="5">ADD22GF</option>
-                    <option value="6">ALPHAGF</option>
-                    <option value="7">BETU0GF</option>
-                    <option value="8">BETU1GF</option>
-                    <option value="9">BETU2GF</option>
-                    <option value="10" selected="selected">CFGF</option>
-                    <option value="11">HDD00GF</option>
-                    <option value="12">HDD01GF</option>
-                    <option value="13">HDD02GF</option>  
-                    <option value="14">HDD11GF</option>
-                    <option value="15">HDD12GF</option>
-                    <option value="16">HDD22GF</option>
-                    <option value="17">LAMBDAU0GF</option>
-                    <option value="18">LAMBDAU1GF</option>
-                    <option value="19">LAMBDAU2GF</option>
-                    <option value="20">TRKGF</option>
-                    <option value="21">VETU0GF</option>
-                    <option value="22">VETU1GF</option>
-                    <option value="23">VETU2GF</option>
-                </select>
+                <div id="dropdown">
+                    <select name="function" id="fx" onchange="changeUp();">
+                        <option value="0">ADD00GF</option>
+                        <option value="1">ADD01GF</option>
+                        <option value="2">ADD02GF</option>
+                        <option value="3">ADD11GF</option>
+                        <option value="4">ADD12GF</option>
+                        <option value="5">ADD22GF</option>
+                        <option value="6">ALPHAGF</option>
+                        <option value="7">BETU0GF</option>
+                        <option value="8">BETU1GF</option>
+                        <option value="9">BETU2GF</option>
+                        <option value="10" selected="selected">CFGF</option>
+                        <option value="11">HDD00GF</option>
+                        <option value="12">HDD01GF</option>
+                        <option value="13">HDD02GF</option>  
+                        <option value="14">HDD11GF</option>
+                        <option value="15">HDD12GF</option>
+                        <option value="16">HDD22GF</option>
+                        <option value="17">LAMBDAU0GF</option>
+                        <option value="18">LAMBDAU1GF</option>
+                        <option value="19">LAMBDAU2GF</option>
+                        <option value="20">TRKGF</option>
+                        <option value="21">VETU0GF</option>
+                        <option value="22">VETU1GF</option>
+                        <option value="23">VETU2GF</option>
+                    </select>
+                </div>
                 <button id="nextButton" onclick="javascript:nextSlice();" disabled>Step Forward</button>
                 <button id="animateButton" onclick="javascript:animateSim();" disabled>Animate</button>
             </div>

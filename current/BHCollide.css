@@ -15,7 +15,6 @@ canvas {
     height: 100%;
 }
 
-
 /* Control Panel start*/
 #controlPanel {
     position: absolute;
@@ -24,7 +23,22 @@ canvas {
     height: auto;
 }
 
-#buttons {
+.selectize-control.single .selectize-input, .selectize-control.single .selectize-input input {
+    height: 27px;
+}
+
+.selectize-control{
+    display: inline-block;
+    width: 200px;
+    height: 28px;
+    vertical-align: middle;
+}
+
+.selectize-input>*{
+    height: 10px;
+}
+
+#controlBar {
     background: #464646;
     padding: 5px;
     border-radius: 0 0 4px 0;
@@ -34,8 +48,13 @@ canvas {
     cursor: pointer;
 }
 
-#fx {
+.buttons{
+   padding: 4px;
+}
+
+#selectFx {
     cursor: pointer;
+    display: inline-block;
 }
 /* Control Panel end*/
 
@@ -70,6 +89,7 @@ label{
     width: 100%;
     background-color: grey;
     border-radius: 4px;
+    visibility: hidden;
 }
 
 #progressDisplay {

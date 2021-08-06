@@ -13,7 +13,7 @@ var xdata=[], ydata=[], zdata=[];
 // Updates the plot when different fields are selected
 function changeUp(){
     if(runonce){
-        fx = document.getElementById("fx").value;
+        fx = document.getElementById("selectFx").value;
         updateMesh(zdata[fx][0], xdata[0], ydata[0]);
     }
 };
@@ -166,7 +166,7 @@ function runSim(){
     i0max = _getNGHOSTS(1)-min;
     i1max = _getNGHOSTS(2)-min;
     i2max = _getNGHOSTS(3)-min;
-    fx = document.getElementById("fx").value;
+    fx = document.getElementById("selectFx").value;
     isRunning = true;
     n=0;
     i=0;
